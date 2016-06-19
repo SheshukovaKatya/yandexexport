@@ -7,7 +7,8 @@ class Badata_YandexExport_ExportController extends Mage_Core_Controller_Front_Ac
      */
     public function indexAction()
     {
-        $filename = Mage::getBaseDir('media').DS.'export_product.xml';
+        $configFile = Mage::getStoreConfig('badata_yandexexport/general/file_name');
+        $filename = Mage::getBaseDir('media').DS.$configFile;//'export_product.xml';
         $content = Mage::helper('badata_yandexexport')->exportYml();
         $dom = new DOMDocument('1.0');
         $dom->preserveWhiteSpace = false;

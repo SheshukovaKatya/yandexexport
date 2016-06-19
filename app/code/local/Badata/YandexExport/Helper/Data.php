@@ -9,14 +9,17 @@ class Badata_YandexExport_Helper_Data extends Mage_Core_Helper_Abstract
     private $_optionArray = null;
     private $_storeId = 1;
     private $_rootCategoryId = 2;
-    private $_useOtherStoreId = 0;
 
     /**
      * Prepare data for export to yml file
      */
     public function exportYml()
     {
+        if(!$this->_initExportConfig()) {
+            return null;
+        }
         Mage::app()->setCurrentStore($this->_storeId);
+
         $date = date('Y-m-d H:i:s');
         $this->_tDate = strtotime($date);
         $base_path = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
@@ -25,10 +28,11 @@ class Badata_YandexExport_Helper_Data extends Mage_Core_Helper_Abstract
         $count = 0;
 
         try {
+            $feed_name = Mage::getStoreConfig('badata_yandexexport/general/feed_name');
             $xml = new SimpleXMLElement("<?xml version='1.0' encoding='UTF-8'?><!DOCTYPE yml_catalog SYSTEM 'shops.dtd'>" . "<yml_catalog date='{$date}'></yml_catalog>");
             $shop = $xml->addChild('shop');
-            $shop->addChild('name', 'vkraske');
-            $shop->addChild('company', 'vkraske');
+            $shop->addChild('name', $feed_name);
+            $shop->addChild('company', $feed_name);
             $shop->addChild('url', $base_path);
             $currencies = $shop->addChild('currencies');
             $currency = $currencies->addChild('currency');
@@ -68,14 +72,7 @@ class Badata_YandexExport_Helper_Data extends Mage_Core_Helper_Abstract
                     $product_count = 0;
                     do {
                         $products->setCurPage($currentPage);
-                        //$products->load();
                         foreach ($products as $offerInfo) {
-                            if($this->_useOtherStoreId) {
-                                $key = $offerInfo->getId();
-                                $offerInfo = Mage::getModel('catalog/product')
-                                    ->setStoreId($this->_useOtherStoreId)
-                                    ->load($key);
-                            }
                             $offer = $offers->addChild('offer');
                             $offer->addAttribute('id', $offerInfo->getSku());
                             if($offerInfo->isSaleable()) {
@@ -84,8 +81,6 @@ class Badata_YandexExport_Helper_Data extends Mage_Core_Helper_Abstract
                             else {
                                 $offer->addAttribute('available', 'false');
                             }
-                            //$offer->addAttribute('type', 'vendor.model');
-
                             //OFFER ELEMENTS
                             $offer->addChild('typePrefix', $categoryInfo->getName());
                             $offer->addChild('url', $base_path . $offerInfo->getUrlPath());
@@ -160,8 +155,19 @@ class Badata_YandexExport_Helper_Data extends Mage_Core_Helper_Abstract
         return htmlspecialchars($result);
     }
 
-    protected function _initExport() {
-        
+    protected function _initExportConfig() {
+        $enabled = Mage::getStoreConfigFlag('badata_yandexexport/general/enabled');
+        if(!$enabled) {
+            Mage::getSingleton('adminhtml/session')->addWarning('Yandex export module not enabled');
+            return false;
+        }
+        $store = Mage::getStoreConfig('badata_yandexexport/general/store');
+        $this->_storeId = ($store != 0 ? : 1);
+        $rootCategory = Mage::getStoreConfig('badata_yandexexport/general/category_id');
+        if($rootCategory > 0) {
+            $this->_rootCategoryId = $rootCategory;
+        }
+        return true;
     }
 
     protected function _getOptionArray($attributeName, $param = null)
