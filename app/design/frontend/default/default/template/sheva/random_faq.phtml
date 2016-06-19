@@ -1,0 +1,23 @@
+<?php
+/**@var Sheva_Simplefaq_Block_Faq $this */
+?>
+<?php echo $this->__('Random Item here: '); ?>
+<?php /* $limit need for widget */?>
+<?php $limit = $this->getData('items_count') ? $this->getData('items_count') : 1; ?>
+<ul>
+    <?php /**@var Sheva_Simplefaq_Model_Item $item */ ?>
+    <?php $items = $this->getRandomFaq($limit) ?>
+    <?php if (!empty($items)): ?>
+        <?php foreach ($items as $item): ?>
+            <li class="question">
+                <span><?php echo $this->__('question: ') ?></span>
+                <span><?php echo $item->getQuestion() ?></span>
+            </li>
+            <li class="answer">
+                <span><?php echo $this->__('answer: ') ?></span>
+                <span><?php echo $item->getAnswer() ?></span>
+            </li>
+            <li><br/></li>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</ul>

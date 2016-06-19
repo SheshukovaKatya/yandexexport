@@ -1,0 +1,20 @@
+<?php
+/**@var Sheva_Simplefaq_Block_Faq $this */
+?>
+<?php echo $this->__('All Active Items here: ') ?>
+<ul>
+    <?php foreach ($this->getAllItems() as $item): ?>
+        <?php /**@var Sheva_Simplefaq_Model_Item $item */ ?>
+        <?php if ($item->getIsActive() > 0): ?>
+            <li class="question">
+                <span><?php echo $this->__('question: ') ?></span>
+                <span><?php echo $item->getQuestion() ?></span>
+            </li>
+            <li class="answer">
+                <span><?php echo $this->__('answer: ') ?></span>
+                <span><?php echo $item->getAnswer() ?></span>
+            </li>
+            <li><br/></li>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</ul>
