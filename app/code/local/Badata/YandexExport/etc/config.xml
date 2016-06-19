@@ -5,4 +5,33 @@
             <version>0.0.1</version>
         </Badata_YandexExport>
     </modules>
+    <global>
+        <blocks>
+            <badata_yandexexport>
+                <class>Badata_YandexExport_Block</class>
+            </badata_yandexexport>
+        </blocks>
+    </global>
+    <frontend>
+        <routers>
+            <badata_yandexexport>
+                <use>standard</use>
+                <args>
+                    <module>Badata_YandexExport</module>
+                    <frontName>badata_yandexexport</frontName>
+                </args>
+            </badata_yandexexport>
+        </routers>
+    </frontend>
+    <admin>
+        <routers>
+            <badata_yandexexport>
+                <use>admin</use>
+                <args>
+                    <module>Badata_YandexExport</module>
+                    <frontName>badata_yandexexport</frontName>
+                </args>
+            </badata_yandexexport>
+        </routers>
+    </admin>
 </config>
