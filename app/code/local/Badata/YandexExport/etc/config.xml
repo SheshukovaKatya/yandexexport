@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Badata_YandexExport>
+            <version>0.0.1</version>
+        </Badata_YandexExport>
+    </modules>
+</config>
