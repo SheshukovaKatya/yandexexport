@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <system>
+            <children>
+                <convert>
+                    <children>
+                        <badata_yandexexport translate="title" module="badata_yandexexport">
+                            <title>Yandex</title>
+                            <children>
+                                <export>
+                                    <title>Export YML</title>
+                                    <sort_order>1</sort_order>
+                                    <action>badata_yandexexport/adminhtml_export</action>
+                                </export>
+                                <config>
+                                    <title>Configuration</title>
+                                    <sort_order>2</sort_order>
+                                    <action>adminhtml/system_config/edit/section/badata_yandexexport</action>
+                                </config>
+                            </children>
+                        </badata_yandexexport>
+                    </children>
+                </convert>
+            </children>
+        </system>
+    </menu>
+    <acl>
+        <resources>
+            <system>
+                <children>
+                    <convert>
+                        <children>
+                            <badata_yandexexport translate="title" module="badata_yandexexport">
+                                <title>Yandex</title>
+                                <children>
+                                    <export>
+                                        <title>Export YML</title>
+                                        <sort_order>1</sort_order>
+                                        <action>badata_yandexexport/adminhtml_export</action>
+                                    </export>
+                                    <config>
+                                        <title>Configuration</title>
+                                        <sort_order>2</sort_order>
+                                        <action>adminhtml/system_config/edit/section/badata_yandexexport</action>
+                                    </config>
+                                </children>
+                            </badata_yandexexport>
+                        </children>
+                    </convert>
+                </children>
+            </system>
+        </resources>
+    </acl>
+</config>

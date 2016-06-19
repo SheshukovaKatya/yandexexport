@@ -11,6 +11,16 @@
                 <class>Badata_YandexExport_Block</class>
             </badata_yandexexport>
         </blocks>
+        <helpers>
+            <badata_yandexexport>
+                <class>Badata_YandexExport_Helper</class>
+            </badata_yandexexport>
+        </helpers>
+        <models>
+            <badata_yandexexport>
+                <class>Badata_YandexExport_Model</class>
+            </badata_yandexexport>
+        </models>
     </global>
     <frontend>
         <routers>
@@ -34,4 +44,28 @@
             </badata_yandexexport>
         </routers>
     </admin>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <badata_yandexexport>
+                                            <title>Yandex Export</title>
+                                        </badata_yandexexport>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
 </config>
